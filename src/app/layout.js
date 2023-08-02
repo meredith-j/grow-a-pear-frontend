@@ -1,4 +1,5 @@
-import './styles/globals.scss'
+import './styles/globals.scss';
+import Navbar from './navbar';
 
 
 export const metadata = {
@@ -8,8 +9,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <>
+      <Navbar />
+      <main>{children}</main>
+    </>
   )
 }
