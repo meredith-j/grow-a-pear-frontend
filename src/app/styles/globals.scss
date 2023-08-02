@@ -1,0 +1,11 @@
+@import "./partials/mixins";
+@import "./partials/breakpoints";
+@import "./partials/colours";
+@import "./partials/fonts";
+
+*, body {
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  background-color: $background;
+}
