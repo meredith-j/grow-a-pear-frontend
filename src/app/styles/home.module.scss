@@ -3,12 +3,20 @@
 @import "./partials/colours";
 @import "./partials/fonts";
 
-// .main {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: flex-start;
-// }
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2rem 0 0 0;
+}
 
-.test {
-  color: red;
+.hero {
+  &_header {
+    text-align: center;
+  }
+
+  &_subheader {
+    padding: 0 0 2rem 0
+  }
 }
