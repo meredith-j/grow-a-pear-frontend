@@ -1,5 +1,6 @@
 import './styles/globals.scss';
 import Navbar from './navbar';
+import Footer from './footer';
 
 
 export const metadata = {
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
       <div className='content'>
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </div>
   )
 }

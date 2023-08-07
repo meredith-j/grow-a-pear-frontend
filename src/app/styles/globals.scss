@@ -21,6 +21,11 @@
   justify-content: center;
   padding: 1rem 0;
 
+  @include tablet {
+    padding: 1rem 2rem;
+    justify-content: space-between;
+  }
+
   &__header {
     display: flex;
     flex-direction: column;
@@ -39,5 +44,36 @@
   &__title {
     font-size: 1rem;
     color: $text-alt;
+  }
+}
+
+.footer {
+  text-align: center;
+  padding: 0.25rem 2rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  @include tablet {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+  }
+
+  &_section {
+    padding: 0 0 0.5rem 0;
+
+    @include tablet {
+      padding: 0;
+    }
+  }
+
+  &_link {
+    text-decoration: none;
+    color: whitesmoke;
+    background-color: $text-alt;
+    padding: 0rem 0.1rem;
   }
 }
