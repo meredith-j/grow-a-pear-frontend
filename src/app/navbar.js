@@ -7,7 +7,7 @@ export default function Navbar() {
     <div className="navbar">
         <div className="navbar__header">
             <Link
-                a href="/"
+                href="/"
                 className="navbar__home">
                 <Image
                     priority

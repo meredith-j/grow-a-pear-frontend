@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="footer_section">
             <span className="footer_text">Learn more about the developer </span>
             <Link
-                a href="https://www.meredithjonatan.dev"
+                href="https://www.meredithjonatan.dev"
                 className="footer_link">
                 <span className="footer_link">here</span>
             </Link>
