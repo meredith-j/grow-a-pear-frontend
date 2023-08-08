@@ -2,3 +2,21 @@
 @import "./partials/breakpoints";
 @import "./partials/colours";
 @import "./partials/fonts";
+
+.header {
+    padding: 1rem 0.5rem;
+
+    &_quiz {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    &_info {
+        text-align: center;
+        padding: 0.5rem 0 2rem 0;
+    }
+}
+
+.form {
+    padding: 1rem 0;
+}

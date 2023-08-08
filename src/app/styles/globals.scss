@@ -7,12 +7,14 @@
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
   margin: 0;
-  background-color: $background;
 }
 
 .content {
   max-width: 80rem;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .navbar {
@@ -50,10 +52,11 @@
 .footer {
   text-align: center;
   padding: 0.25rem 2rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  margin-top: auto;
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
+  // width: 100%;
 
   @include tablet {
     display: flex;
