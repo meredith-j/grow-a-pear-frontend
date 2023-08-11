@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import growapear from "../../public/logo.png"
+import growapear from "../../../public/logo.png"
 
 export default function Navbar() {
     return (
