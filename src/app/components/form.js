@@ -87,7 +87,7 @@ export default function Form() {
                         <input className="vibe__option"
                             type="radio" 
                             name="vibe"
-                            value={vibe}
+                            value="false"
                             onChange={(e) => {
                             setVibe(e.target.value)}}
                         />
@@ -97,7 +97,7 @@ export default function Form() {
                         <input className="vibe__option"
                             type="radio" 
                             name="vibe"
-                            value={vibe}
+                            value="true"
                             onChange={(e) => {
                             setVibe(e.target.value)}}
                         />
