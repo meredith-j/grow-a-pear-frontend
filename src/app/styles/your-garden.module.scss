@@ -42,6 +42,23 @@
         height: 2rem;
         display: flex;
         flex-direction: column;
+        background-color: none;
+    }
+
+    &_validation {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+
+    &_no_error {
+        visibility: hidden;
+    }
+    
+    &_error {
+        visibility: visible;
+        color: $error;
+        padding: 0.5rem 0 0 0;
     }
 
     &_plant {
@@ -58,6 +75,11 @@
         &_label {
             padding: 0 0 0 0.5rem;
         }
+    }
+
+    &_vibes_validation {
+        display: flex;
+        flex-direction: row;
     }
 
     &_comment {
