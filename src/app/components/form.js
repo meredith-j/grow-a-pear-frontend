@@ -12,35 +12,57 @@ export default function Form() {
     const [vibe, setVibe] = useState("")
     const [review, setReview] = useState("")
 
+    // add form fields
+    const handleClick = () => {
+
+    }
+
+    // form submission
     const handleOnSubmit = (e) => {
         // prevent refresh
         e.preventDefault();
 
         // form validation
+        if (!city || city === "") {
+            console.log("City is required.")
+        }
 
-        // create body for request
-        const newPlant = {};
-        newPlant.city = e.target.city.value;
-        newPlant.province = e.target.province.value;
-        newPlant.plant = e.target.plant.value;
-        newPlant.vibe = e.target.vibe.value;
-        newPlant.vibe = e.target.vibe.value;
-        newPlant.review = e.target.review.value;
+        if (!province || province === "") {
+            console.log("Province is required.")
+        }
 
-        console.log(newPlant)
+        if (!plant || plant === "") {
+            console.log("Plant is required.")
+        }
 
-        // send POST request
-        axios
-            .post(`http://localhost:8080/plant`, newPlant)
-            .then(() => {
-                
-                // navigate to thank you page (maybe email sign ups?)
+        if (!vibe || vibe === "") {
+            console.log("Vibe is required.")
+        }
 
-                console.log("🤘🏻")
-            })
-            .catch((err) => {
-            console.log(err);
-            });
+        else {
+            // create body for request
+            const newPlant = {};
+            newPlant.city = e.target.city.value;
+            newPlant.province = e.target.province.value;
+            newPlant.plant = e.target.plant.value;
+            newPlant.vibe = e.target.vibe.value;
+            newPlant.review = e.target.review.value;
+
+            console.log(newPlant)
+
+            // send POST request
+            axios
+                .post(`http://localhost:8080/plant`, newPlant)
+                .then(() => {
+                    
+                    // navigate to thank you page (maybe email sign ups?)
+
+                    console.log("🤘🏻")
+                })
+                .catch((err) => {
+                console.log(err);
+                });
+        }
     }
 
     return (
