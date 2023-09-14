@@ -2,19 +2,31 @@
 
 import styles from '../styles/your-garden.module.scss'
 import axios from 'axios';
-import { useState } from 'react';
+import { use, useState } from 'react';
 
 export default function Form() {
 
     const [city, setCity] = useState("")
     const [province, setProvince] = useState("")
-    const [plant, setPlant] = useState("")
-    const [vibe, setVibe] = useState("")
-    const [review, setReview] = useState("")
+    // const [plant, setPlant] = useState("")
+    // const [vibe, setVibe] = useState("")
+    // const [review, setReview] = useState("")
     const [isValid, setIsValid] = useState(true)
+    const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}])
 
     // add form fields
-    const handleClick = () => {
+    const addPlant = () => {
+        let newPlant = {plant:"", vibe: "", review: ""};
+        
+        setPlantData([...plantData, newPlant])
+    }
+
+    // form update
+    const handleFormChange = (event, index) => {
+
+        let data = [...plantData];
+        data[index][event.target.name] = event.target.value;
+        setPlantData(data)
 
     }
 
@@ -38,13 +50,13 @@ export default function Form() {
             return
         }
 
-        if (!plant || plant === "") {
+        if (!plant || plantData.plant === "") {
             // errors.plant = "Plant is required."
             setIsValid(false)
             return
         }
 
-        if (!vibe || vibe === "") {
+        if (!vibe || plantData.vibe === "") {
             // errors.vibe = "Vibe is required."
             setIsValid(false)
             return
@@ -108,62 +120,69 @@ export default function Form() {
                         />
                     </div>
                 </div>
-                <div className={styles.form_question}>
-                    <label className={styles.form_label}>
-                        What did you grow?</label>
-                    <div className={styles.form_validation}>
-                        <p className={`${styles.form_no_error} ${!isValid && plant === "" ? styles.form_error : ""}`}>!</p>
-                        <input className={styles.form_plant}
-                            type="text"
-                            name="plant"
-                            placeholder="Your Plant"
-                            value={plant}
-                            onChange={(e) => {
-                                setPlant(e.target.value)}}
-                        />
-                    </div>
-                </div>
-                <div className={styles.form_question}>
-                    <label className={styles.form_label}>
-                        Did you vibe with this plant?</label>
-                    <div className={styles.form_vibes_validation}>
-                        <p className={`${styles.form_no_error} ${!isValid && vibe === "" ? styles.form_error : ""}`}>!</p>
-                        <div className={styles.form_vibes}>
-                            <div className={styles.form_vibe}>
-                                <input className={styles.form_vibe_option}
-                                    type="radio" 
-                                    name="vibe"
-                                    value="false"
-                                    onChange={(e) => {
-                                    setVibe(e.target.value)}}
-                                />
-                                <p className={styles.form_vibe_label}>We did not vibe. 🥀</p>
+                {plantData.map((plant, index) => {
+                    return (
+                        <div key={index} className={styles.form_border}>
+                            <div className={styles.form_question}>
+                                <label className={styles.form_label}>
+                                    What did you grow?</label>
+                                <div className={styles.form_validation}>
+                                    <p className={`${styles.form_no_error} ${!isValid && plantData.plant === "" ? styles.form_error : ""}`}>!</p>
+                                    <input className={styles.form_plant}
+                                        type="text"
+                                        name="plant"
+                                        placeholder="Your Plant"
+                                        value={plant.plant}
+                                        onChange={event =>
+                                            handleFormChange(event, index)}
+                                    />
+                                </div>
                             </div>
-                            <div className={styles.form_vibe}>
-                                <input className={styles.form_vibe_option}
-                                    type="radio" 
-                                    name="vibe"
-                                    value="true"
-                                    onChange={(e) => {
-                                    setVibe(e.target.value)}}
+                            <div className={styles.form_question}>
+                                <label className={styles.form_label}>
+                                    Did you vibe with this plant?</label>
+                                <div className={styles.form_vibes_validation}>
+                                    <p className={`${styles.form_no_error} ${!isValid && plantData.vibe === "" ? styles.form_error : ""}`}>!</p>
+                                    <div className={styles.form_vibes}>
+                                        <div className={styles.form_vibe}>
+                                            <input className={styles.form_vibe_option}
+                                                type="radio" 
+                                                name="vibe"
+                                                value="false"
+                                                onChange={event =>
+                                                    handleFormChange(event, index)}
+                                            />
+                                            <p className={styles.form_vibe_label}>We did not vibe. 🥀</p>
+                                        </div>
+                                        <div className={styles.form_vibe}>
+                                            <input className={styles.form_vibe_option}
+                                                type="radio" 
+                                                name="vibe"
+                                                value="true"
+                                                onChange={event =>
+                                                    handleFormChange(event, index)}
+                                            />
+                                            <p className={styles.form_vibe_label}>Hell yeah, we vibed 🤘🏻</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={styles.form_question}>
+                                <label className={styles.form_label}>
+                                    Any wisdom to pass on?</label>
+                                <textarea
+                                    name="review"
+                                    id="review"
+                                    className={styles.form_comment}
+                                    value={plant.review}
+                                    onChange={event =>
+                                        handleFormChange(event, index)}
                                 />
-                                <p className={styles.form_vibe_label}>Hell yeah, we vibed 🤘🏻</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className={styles.form_question}>
-                    <label className={styles.form_label}>
-                        Any wisdom to pass on?</label>
-                    <textarea
-                        name="review"
-                        id="review"
-                        className={styles.form_comment}
-                        value={review}
-                        onChange={(e) => {
-                            setReview(e.target.value)}}
-                    />
-                </div>
+                    )
+                })}
+                <button className={styles.form_more} onClick={addPlant}>Add another plant</button>
                 <button className={styles.form_submit} type="submit">
                     Save my plants
                 </button>
