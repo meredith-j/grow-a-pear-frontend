@@ -6,23 +6,27 @@ import { use, useState } from 'react';
 
 export default function Form() {
 
+    const [futureUser, setFutureUser] = useState("")
+    const [email, setEmail] = useState("")
     const [city, setCity] = useState("")
     const [province, setProvince] = useState("")
-    // const [plant, setPlant] = useState("")
-    // const [vibe, setVibe] = useState("")
-    // const [review, setReview] = useState("")
     const [isValid, setIsValid] = useState(true)
     const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}])
 
     // add form fields
     const addPlant = () => {
         let newPlant = {plant:"", vibe: "", review: ""};
-        
         setPlantData([...plantData, newPlant])
+    }
+
+    // remove form fields
+    const removePlant = () => {
+
     }
 
     // form update
     const handleFormChange = (event, index) => {
+        event.preventDefault();
 
         let data = [...plantData];
         data[index][event.target.name] = event.target.value;
@@ -31,77 +35,91 @@ export default function Form() {
     }
 
     // form submission
+    // const handleOnSubmit = (e) => {
+    //     // prevent refresh
+    //     e.preventDefault();
+
+    //     // form validation
+    //     // let errors = {};
+
+    //     if (!city || city === "") {
+    //         // errors.city = "City is required."
+    //         setIsValid(false)
+    //         return
+    //     }
+
+    //     if (!province || province === "") {
+    //         // errors.city = "City is required."
+    //         setIsValid(false)
+    //         return
+    //     }
+
+    //     if (!plant || plantData.plant === "") {
+    //         // errors.plant = "Plant is required."
+    //         setIsValid(false)
+    //         return
+    //     }
+
+    //     if (!vibe || plantData.vibe === "") {
+    //         // errors.vibe = "Vibe is required."
+    //         setIsValid(false)
+    //         return
+    //     }
+
+    //     // setErrors(errors)
+
+    //     // create body for request
+    //     const newPlant = {};
+    //     newPlant.city = e.target.city.value;
+    //     newPlant.province = e.target.province.value;
+    //     newPlant.plant = e.target.plant.value;
+    //     newPlant.vibe = e.target.vibe.value;
+    //     newPlant.review = e.target.review.value;
+
+    //     console.log(newPlant)
+    //     console.log(plantData)
+
+    //     // send POST request
+    //     axios
+    //         .post(`http://localhost:8080/plant`, newPlant)
+    //         .then(() => {
+                    
+    //             // navigate to thank you page (maybe email sign ups?)
+
+    //             console.log("🤘🏻")
+    //         })
+    //         .catch((err) => {
+    //         console.log(err);
+    //         });
+        
+    // }
+
+    // refactoring form submission to include multiple plants
     const handleOnSubmit = (e) => {
-        // prevent refresh
         e.preventDefault();
 
-        // form validation
-        // let errors = {};
+        console.log(plantData)
 
-        if (!city || city === "") {
-            // errors.city = "City is required."
-            setIsValid(false)
-            return
+        for (i = 0; i < plantData.length; i++) {
+            // create variable to hold the info in the format needed
         }
 
-        if (!province || province === "") {
-            // errors.city = "City is required."
-            setIsValid(false)
-            return
-        }
-
-        if (!plant || plantData.plant === "") {
-            // errors.plant = "Plant is required."
-            setIsValid(false)
-            return
-        }
-
-        if (!vibe || plantData.vibe === "") {
-            // errors.vibe = "Vibe is required."
-            setIsValid(false)
-            return
-        }
-
-        // setErrors(errors)
-
-        // create body for request
-        const newPlant = {};
-        newPlant.city = e.target.city.value;
-        newPlant.province = e.target.province.value;
-        newPlant.plant = e.target.plant.value;
-        newPlant.vibe = e.target.vibe.value;
-        newPlant.review = e.target.review.value;
-
-        console.log(newPlant)
-
-        // send POST request
-        axios
-            .post(`http://localhost:8080/plant`, newPlant)
-            .then(() => {
-                    
-                // navigate to thank you page (maybe email sign ups?)
-
-                console.log("🤘🏻")
-            })
-            .catch((err) => {
-            console.log(err);
-            });
-        
+        // navigate to a thank you page
     }
 
     return (
     <div>
         <form className={styles.form}
-            onSubmit={handleOnSubmit}
-            >
+            onSubmit={handleOnSubmit}>
                 <div className={styles.form_question}>
-                    <label className={styles.form_label}>
+                    <label className={styles.form_label} for="city and province">
                         Where do you live?</label>
                     <div className={styles.form_validation}>
                         <p className={`${styles.form_no_error} ${!isValid && city === "" ? styles.form_error : ""}`}>!</p>
                         <input className={styles.form_location}
                             type="text"
                             name="city"
+                            id="city and province"
                             placeholder="Your City"
                             value={city}
                             onChange={(e) => {
@@ -124,13 +142,14 @@ export default function Form() {
                     return (
                         <div key={index} className={styles.form_border}>
                             <div className={styles.form_question}>
-                                <label className={styles.form_label}>
+                                <label className={styles.form_label} for="plant">
                                     What did you grow?</label>
                                 <div className={styles.form_validation}>
                                     <p className={`${styles.form_no_error} ${!isValid && plantData.plant === "" ? styles.form_error : ""}`}>!</p>
                                     <input className={styles.form_plant}
                                         type="text"
                                         name="plant"
+                                        id="plant"
                                         placeholder="Your Plant"
                                         value={plant.plant}
                                         onChange={event =>
@@ -139,8 +158,8 @@ export default function Form() {
                                 </div>
                             </div>
                             <div className={styles.form_question}>
-                                <label className={styles.form_label}>
-                                    Did you vibe with this plant?</label>
+                                <p className={styles.form_label}>
+                                    Did you vibe with this plant?</p>
                                 <div className={styles.form_vibes_validation}>
                                     <p className={`${styles.form_no_error} ${!isValid && plantData.vibe === "" ? styles.form_error : ""}`}>!</p>
                                     <div className={styles.form_vibes}>
@@ -148,27 +167,29 @@ export default function Form() {
                                             <input className={styles.form_vibe_option}
                                                 type="radio" 
                                                 name="vibe"
+                                                id="did not vibe"
                                                 value="false"
                                                 onChange={event =>
                                                     handleFormChange(event, index)}
                                             />
-                                            <p className={styles.form_vibe_label}>We did not vibe. 🥀</p>
+                                            <label className={styles.form_vibe_label}  for="did not vibe">We did not vibe. 🥀</label>
                                         </div>
                                         <div className={styles.form_vibe}>
                                             <input className={styles.form_vibe_option}
                                                 type="radio" 
                                                 name="vibe"
+                                                id="we did vibe"
                                                 value="true"
                                                 onChange={event =>
                                                     handleFormChange(event, index)}
                                             />
-                                            <p className={styles.form_vibe_label}>Hell yeah, we vibed 🤘🏻</p>
+                                            <label className={styles.form_vibe_label} for="we did vibe">Hell yeah, we vibed 🤘🏻</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className={styles.form_question}>
-                                <label className={styles.form_label}>
+                                <label className={styles.form_label} for="review">
                                     Any wisdom to pass on?</label>
                                 <textarea
                                     name="review"
@@ -182,10 +203,20 @@ export default function Form() {
                         </div>
                     )
                 })}
-                <button className={styles.form_more} onClick={addPlant}>Add another plant</button>
-                <button className={styles.form_submit} type="submit">
-                    Save my plants
-                </button>
+                <div className={styles.form_question}>
+                    <label className={styles.form_label} for="signup">
+                        Want us to let you know when Grow a Pear goes live?</label>
+                    <input className={styles.form_email}
+                            type="text"
+                            name="signup"
+                            placeholder="Your email"
+                            value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value)}}
+                    />
+                </div>
+                <button className={styles.form_more} onClick={addPlant} type="button">Add another plant</button>
+                <button className={styles.form_submit} onClick={handleOnSubmit} type="submit">Save my plants</button>
         </form>
     </div>
     )
