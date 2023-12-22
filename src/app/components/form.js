@@ -109,30 +109,20 @@ export default function Form() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-            // const newPlants = {};
-            //     newPlants.city = e.target.city.value;
-            //     newPlants.province = e.target.province.value;
-            //     newPlants.plants = plantData
-            //     newPlants.data = e.target.email.value;
-
-            //     console.log(newPlants)
-            //     console.log(plantData)
+            console.log(city, province, plantData, email)
 
             // send POST request
             axios
                 .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
                 .then(() => {
                 
-                    console.log(city, province, plantData, email)
-                // navigate to thank you page (maybe email sign ups?)
+                // navigate to thank you page 
 
                 console.log("🤘🏻")
                 })
                 .catch((err) => {
                 console.log(err);
                 });
-
-        // navigate to a thank you page
     }
 
     return (
