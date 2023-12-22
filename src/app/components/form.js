@@ -32,9 +32,18 @@ export default function Form() {
         data[index][event.target.name] = event.target.value;
         setPlantData(data)
 
+        
+        // for (let i = 0; i < data.length; i++) {
+
+        //     console.log(data[i])
+            
+        //     axios
+        //         .post(`http://localhost:8080/plant`, {email:email, city:city, province:province, sunlight:sunlight, plant:data[i].plant, vibe:data[i].vibe, review:data[i].review})
+        // }
+
     }
 
-    // form submission
+    // form submission (old)
     // const handleOnSubmit = (e) => {
     //     // prevent refresh
     //     e.preventDefault();
@@ -95,14 +104,33 @@ export default function Form() {
     // }
 
     // refactoring form submission to include multiple plants
+    
+    // form submission (new)
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-        console.log(plantData)
+            // const newPlants = {};
+            //     newPlants.city = e.target.city.value;
+            //     newPlants.province = e.target.province.value;
+            //     newPlants.plants = plantData
+            //     newPlants.data = e.target.email.value;
 
-        for (i = 0; i < plantData.length; i++) {
-            // create variable to hold the info in the format needed
-        }
+            //     console.log(newPlants)
+            //     console.log(plantData)
+
+            // send POST request
+            axios
+                .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
+                .then(() => {
+                
+                    console.log(city, province, plantData, email)
+                // navigate to thank you page (maybe email sign ups?)
+
+                console.log("🤘🏻")
+                })
+                .catch((err) => {
+                console.log(err);
+                });
 
         // navigate to a thank you page
     }
@@ -112,7 +140,7 @@ export default function Form() {
         <form className={styles.form}
             onSubmit={handleOnSubmit}>
                 <div className={styles.form_question}>
-                    <label className={styles.form_label} for="city and province">
+                    <label className={styles.form_label} htmlFor="city and province">
                         Where do you live?</label>
                     <div className={styles.form_validation}>
                         <p className={`${styles.form_no_error} ${!isValid && city === "" ? styles.form_error : ""}`}>!</p>
@@ -142,7 +170,7 @@ export default function Form() {
                     return (
                         <div key={index} className={styles.form_border}>
                             <div className={styles.form_question}>
-                                <label className={styles.form_label} for="plant">
+                                <label className={styles.form_label} htmlFor="plant">
                                     What did you grow?</label>
                                 <div className={styles.form_validation}>
                                     <p className={`${styles.form_no_error} ${!isValid && plantData.plant === "" ? styles.form_error : ""}`}>!</p>
@@ -172,7 +200,7 @@ export default function Form() {
                                                 onChange={event =>
                                                     handleFormChange(event, index)}
                                             />
-                                            <label className={styles.form_vibe_label}  for="did not vibe">We did not vibe. 🥀</label>
+                                            <label className={styles.form_vibe_label}  htmlFor="did not vibe">We did not vibe. 🥀</label>
                                         </div>
                                         <div className={styles.form_vibe}>
                                             <input className={styles.form_vibe_option}
@@ -183,13 +211,13 @@ export default function Form() {
                                                 onChange={event =>
                                                     handleFormChange(event, index)}
                                             />
-                                            <label className={styles.form_vibe_label} for="we did vibe">Hell yeah, we vibed 🤘🏻</label>
+                                            <label className={styles.form_vibe_label} htmlFor="we did vibe">Hell yeah, we vibed 🤘🏻</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className={styles.form_question}>
-                                <label className={styles.form_label} for="review">
+                                <label className={styles.form_label} htmlFor="review">
                                     Any wisdom to pass on?</label>
                                 <textarea
                                     name="review"
@@ -204,7 +232,7 @@ export default function Form() {
                     )
                 })}
                 <div className={styles.form_question}>
-                    <label className={styles.form_label} for="signup">
+                    <label className={styles.form_label} htmlFor="signup">
                         Want us to let you know when Grow a Pear goes live?</label>
                     <input className={styles.form_email}
                             type="text"
@@ -216,7 +244,7 @@ export default function Form() {
                     />
                 </div>
                 <button className={styles.form_more} onClick={addPlant} type="button">Add another plant</button>
-                <button className={styles.form_submit} onClick={handleOnSubmit} type="submit">Save my plants</button>
+                <button className={styles.form_submit} value="submit" type="submit">Save my plants</button>
         </form>
     </div>
     )
