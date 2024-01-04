@@ -175,7 +175,7 @@ export default function Form() {
                                     />
                                 </div>
                             </div>
-                            {/* BELOW IS OLD FORM VIBE */}
+                                {/* BELOW IS OLD FORM FOR VIBE -- may need for validation later */}
                                 {/* <div className={styles.form_question}>
                                     <p className={styles.form_label}>
                                         Did you vibe with this plant?</p>
@@ -207,24 +207,29 @@ export default function Form() {
                                         </div>
                                     </div>
                                 </div> */}
-                        {/* NEW VIBE SECTION */}
                             <div className={styles.form_question}>
                                 <label className={styles.form_vibe_label} htmlFor="vibe">Did you vibe?</label>
-                                    <select id="vibe" name="vibe">
+                                    <select name="vibe"
+                                        id="vibe"
+                                        value={plant.vibe}
+                                        onChange={event =>
+                                            handleFormChange(event, index)}>
+                                        <option id="choose your vibe"
+                                            name="vibe" 
+                                            value="">
+                                                Select One
+                                                </option>
                                         <option
-                                            id="yes vibe"
+                                            id="vibe"
                                             value="true"
                                             name="vibe"
-                                            onChange={event =>
-                                                handleFormChange(event, index)}>
+                                            >
                                                 Hell yeah, we vibed 🤘🏻
                                                 </option>
                                         <option
                                             id="vibe"
                                             value="false"
-                                            name="vibe"
-                                            onChange={event =>
-                                                handleFormChange(event, index)}>
+                                            name="vibe">
                                                 We did not vibe. 🥀
                                                 </option>
                                     </select>
@@ -250,6 +255,7 @@ export default function Form() {
                     <input className={styles.form_email}
                             type="text"
                             name="signup"
+                            id="signup"
                             placeholder="Your email"
                             value={email}
                             onChange={(e) => {
