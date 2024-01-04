@@ -19,7 +19,7 @@ export default function Form() {
         setPlantData([...plantData, newPlant])
     }
 
-    // remove form fields
+    // NOT DONE remove form fields
     const removePlant = () => {
 
     }
@@ -175,36 +175,59 @@ export default function Form() {
                                     />
                                 </div>
                             </div>
-                            <div className={styles.form_question}>
-                                <p className={styles.form_label}>
-                                    Did you vibe with this plant?</p>
-                                <div className={styles.form_vibes_validation}>
-                                    <p className={`${styles.form_no_error} ${!isValid && plantData.vibe === "" ? styles.form_error : ""}`}>!</p>
-                                    <div className={styles.form_vibes}>
-                                        <div className={styles.form_vibe}>
-                                            <input className={styles.form_vibe_option}
-                                                type="radio" 
-                                                name="vibe"
-                                                id="did not vibe"
-                                                value="false"
-                                                onChange={event =>
-                                                    handleFormChange(event, index)}
-                                            />
-                                            <label className={styles.form_vibe_label}  htmlFor="did not vibe">We did not vibe. 🥀</label>
-                                        </div>
-                                        <div className={styles.form_vibe}>
-                                            <input className={styles.form_vibe_option}
-                                                type="radio" 
-                                                name="vibe"
-                                                id="we did vibe"
-                                                value="true"
-                                                onChange={event =>
-                                                    handleFormChange(event, index)}
-                                            />
-                                            <label className={styles.form_vibe_label} htmlFor="we did vibe">Hell yeah, we vibed 🤘🏻</label>
+                            {/* BELOW IS OLD FORM VIBE */}
+                                {/* <div className={styles.form_question}>
+                                    <p className={styles.form_label}>
+                                        Did you vibe with this plant?</p>
+                                    <div className={styles.form_vibes_validation}>
+                                        <p className={`${styles.form_no_error} ${!isValid && plantData.vibe === "" ? styles.form_error : ""}`}>!</p>
+                                        <div className={styles.form_vibes}>
+                                            <div className={styles.form_vibe}>
+                                                <input className={styles.form_vibe_option}
+                                                    type="radio" 
+                                                    name="vibe"
+                                                    id="did not vibe"
+                                                    value="false"
+                                                    onChange={event =>
+                                                        handleFormChange(event, index)}
+                                                />
+                                                <label className={styles.form_vibe_label}  htmlFor="vibe">We did not vibe. 🥀</label>
+                                            </div>
+                                            <div className={styles.form_vibe}>
+                                                <input className={styles.form_vibe_option}
+                                                    type="radio" 
+                                                    name="vibe"
+                                                    id="we did vibe"
+                                                    value="true"
+                                                    onChange={event =>
+                                                        handleFormChange(event, index)}
+                                                />
+                                                <label className={styles.form_vibe_label} htmlFor="vibe">Hell yeah, we vibed 🤘🏻</label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
+                        {/* NEW VIBE SECTION */}
+                            <div className={styles.form_question}>
+                                <label className={styles.form_vibe_label} htmlFor="vibe">Did you vibe?</label>
+                                    <select id="vibe" name="vibe">
+                                        <option
+                                            id="yes vibe"
+                                            value="true"
+                                            name="vibe"
+                                            onChange={event =>
+                                                handleFormChange(event, index)}>
+                                                Hell yeah, we vibed 🤘🏻
+                                                </option>
+                                        <option
+                                            id="vibe"
+                                            value="false"
+                                            name="vibe"
+                                            onChange={event =>
+                                                handleFormChange(event, index)}>
+                                                We did not vibe. 🥀
+                                                </option>
+                                    </select>
                             </div>
                             <div className={styles.form_question}>
                                 <label className={styles.form_label} htmlFor="review">
