@@ -29,5 +29,5 @@ Our full platform will launch later in 2024. Core features will include:
 - MySQL
 - Lottie-React Library
 - Google Maps Geocoding API
-<br>
-🌱 See the backend repo for this project [here](https://github.com/meredith-j/grow-a-pear-backend)
+
+### 🌱 See the backend repo for this project [here](https://github.com/meredith-j/grow-a-pear-backend)
