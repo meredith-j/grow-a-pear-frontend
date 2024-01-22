@@ -1,35 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### 🌱 What is Grow A Pear?
 
-## Getting Started
+When I moved into my last apartment, complete with some cute outdoor space, I couldn't wait to plan my first garden. I quickly realized it was going to be a bigger struggle than I'd originally thought to get any good information. There are no websites with accurate & easy-to-read data on what plants you can grow. Bloggers will write about their own experiences gardening, but the plants they grow are very specific to the climate & sun exposure their plants are getting. Alternatively, there are lots of plant stores – but all of them are built with the purpose of selling you a product, not necessarily providing you with the information you need to choose the perfect plants for you.
 
-First, run the development server:
+Enter Grow A Pear, your laid-back garden guru. I'm determined to make gardening accessible to everyone, from first-timers to seasoned pros. No drama, just straightforward info on plants that'll thrive where you live. Because no one should have to kill a dozen plants before they figure out what'll flourish. Let's make your space lush and maybe spill a little floral tea along the way.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+### 🌱 How Does it Work?
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Grow A Pear will leverage the power of crowdsourcing to provide valuable plant information, delivering users precise data on which plants flourish in gardens with climates and sun exposures similar to their own. Unlike conventional approaches that limit information based solely on your location, Grow A Pear uses your location to determine your [Plant Hardiness Zone](http://www.planthardiness.gc.ca/?m=1&lang=en). This broadens the scope of data users can access to include any location in Canada with a comparable climate. By tapping into a network of users facing similar conditions, users will receive insights and advice from a diverse community of gardeners, exponentially enhancing their gardening success.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### 🌱 Release Details
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Grow A Pear will be released in two phases. Beta Mode will be released early in 2024 as a form where users can let us know where they're from, what they've grown, and how well they vibed with their plants. While we work on phase 2 of our launch, we'll be accumulating useful information for future users.
 
-## Learn More
+Our full platform will launch later in 2024. Core features will include:
+- our gardening quiz, which will help you figure out what plants have worked for people in your climate
+- being able to save folders of plants so you can plan ahead for your next garden
+- reminders of how far in advance to buy your plants, based on when your gardening season starts and whether or not you want to grow plants from seed, indoor grow lights or nursery plants
 
-To learn more about Next.js, take a look at the following resources:
+### 🌱 Tech Stack and APIs
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# grow-a-pear-frontend
+HTML
+CSS
+SASS
+NextJS
+NodeJS
+Express
+Prisma
+MySQL
+Lottie-React Library
+Google Maps Geocoding API
