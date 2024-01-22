@@ -29,3 +29,6 @@ Prisma
 MySQL
 Lottie-React Library
 Google Maps Geocoding API
+
+
+🌱 See the backend repo for this project [here](https://github.com/meredith-j/grow-a-pear-backend)
