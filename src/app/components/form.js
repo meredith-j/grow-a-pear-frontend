@@ -2,7 +2,8 @@
 
 import styles from '../styles/your-garden.module.scss'
 import axios from 'axios';
-import { use, useState } from 'react';
+import { useState } from 'react';
+import Script from 'next/script';
 
 export default function Form() {
 
@@ -127,6 +128,9 @@ export default function Form() {
 
     return (
     <div>
+        <Script async
+            src="https://maps.googleapis.com/maps/api/js?key= ${MY KEY} &loading=async&libraries=places">
+        </Script>
         <form className={styles.form}
             onSubmit={handleOnSubmit}>
                 <div className={styles.form_question}>
