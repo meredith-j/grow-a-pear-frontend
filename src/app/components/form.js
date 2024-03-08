@@ -2,18 +2,18 @@
 
 import styles from '../styles/your-garden.module.scss'
 import axios from 'axios';
-import { useState, useNavigate } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { redirect, useRouter } from 'next/navigation';
 
 export default function Form() {
 
-    const [futureUser, setFutureUser] = useState("")
-    const [email, setEmail] = useState("")
-    const [city, setCity] = useState("")
-    const [province, setProvince] = useState("")
-    const [isValid, setIsValid] = useState(true)
-    const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}])
-    const router = useRouter()
+    const [futureUser, setFutureUser] = useState("");
+    const [email, setEmail] = useState("");
+    const [city, setCity] = useState("");
+    const [province, setProvince] = useState("");
+    const [isValid, setIsValid] = useState(true);
+    const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}]);
+    const router = useRouter();
 
     // add form fields
     const addPlant = () => {
@@ -113,19 +113,19 @@ export default function Form() {
 
             console.log(city, province, plantData, email)
 
-            // send POST request
             axios
                 .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
                 .then(() => {
-                
-                // navigate to thank you page 
-                router.push("/thank-you")
-                console.log("🤘🏻")
-                
+                    console.log("🤘🏻 .then is working")
+
+                    // navigate to thank you page 
+
                 })
                 .catch((err) => {
                 console.log(err);
                 });
+
+                router.push('/thank-you')
     }
 
     return (
