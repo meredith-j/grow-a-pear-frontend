@@ -2,7 +2,8 @@
 
 import styles from '../styles/your-garden.module.scss'
 import axios from 'axios';
-import { use, useState } from 'react';
+import { useState, useNavigate } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Form() {
 
@@ -12,6 +13,7 @@ export default function Form() {
     const [province, setProvince] = useState("")
     const [isValid, setIsValid] = useState(true)
     const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}])
+    const router = useRouter()
 
     // add form fields
     const addPlant = () => {
@@ -117,8 +119,9 @@ export default function Form() {
                 .then(() => {
                 
                 // navigate to thank you page 
-
+                router.push("/thank-you")
                 console.log("🤘🏻")
+                
                 })
                 .catch((err) => {
                 console.log(err);

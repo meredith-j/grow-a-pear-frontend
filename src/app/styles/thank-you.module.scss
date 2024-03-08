@@ -2,3 +2,55 @@
 @import "./partials/breakpoints";
 @import "./partials/colours";
 @import "./partials/fonts";
+
+.submission {
+    &_success{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        max-width: 1280rem;
+    }
+
+    &_heading {
+        padding: 0.5rem 1rem;
+
+        @include tablet {
+            padding: 0.5rem 2rem 1rem 2rem; 
+        }
+    }
+
+    &_copy {
+        line-height: 1rem;
+        padding: 0.5rem 0;
+
+        @include tablet {
+            width: 75%;
+        }
+    }
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    gap: 0.5rem;
+
+    &_link:hover {
+        background-color: $background;
+        color: $text-alt;
+        border: 0.05rem solid $text-alt;
+    }
+
+    &_link {
+        background-color: $text-alt;
+        text-decoration: none;
+        color: $background;
+        padding: 0.5rem;
+        width: 12rem;
+        text-align: center;
+        border-radius: 10rem;
+        border: 0.05rem solid $text-alt;
+    }
+}
