@@ -166,10 +166,12 @@ export default function Form() {
                                         handleFormChange(event, i)}
                                 />
                             </div>
-                            <button type="button" className={`${styles.form_button} ${i === 0 ? styles.form_button_hide : ""}`} onClick={() => removePlant(i)}>Remove</button> 
+                            <button type="button" className={`${styles.form_button} ${plantData.length === 1 ? styles.form_button_hide : ""}`} onClick={() => removePlant(i)}>Remove</button> 
                         </div>
                     )
                 })}
+                <button className={`${plantData.length === 5 ? styles.form_button_hide : styles.form_button}`} onClick={addPlant} type="button">Add another plant</button>
+                <p className={`${plantData.length === 5 ? styles.form_warning : styles.form_warning_hide}`}>You've reached the max amount of plants that can be submitted.</p>
                 <div className={styles.form_question}>
                     <label className={styles.form_label} htmlFor="signup">
                         Want us to let you know when Grow a Pear goes live?</label>
@@ -183,7 +185,6 @@ export default function Form() {
                                 setEmail(e.target.value)}}
                     />
                 </div>
-                <button className={styles.form_more} onClick={addPlant} type="button">Add another plant</button>
                 <button className={styles.form_submit} value="submit" type="submit">Save my plants</button>
         </form>
     </div>
