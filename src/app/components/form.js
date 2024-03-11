@@ -202,7 +202,7 @@ export default function Form() {
                                 setEmail(e.target.value)}}
                     />
                 </div>
-                <button className={styles.form_submit} value="submit" type="submit">Save my plants</button>
+                <button className={styles.form_button} value="submit" type="submit">Save my plants</button>
         </form>
     </div>
     )
