@@ -20,10 +20,15 @@ export default function Form() {
           let province = localStorage.getItem('province');
           let email = localStorage.getItem('email');
 
-          if (!city || !province || !email) {
+          if (!city && !email || !province && !email) {
             setCity("")
             setProvince("")
             setEmail("")
+          }
+
+          else if (!city || !province) {
+            setCity("")
+            setProvince("")
           }
 
           else {
@@ -39,7 +44,7 @@ export default function Form() {
         setPlantData([...plantData, newPlant])
     }
 
-    // NOT DONE remove form fields
+    // remove form fields
     const removePlant = (i) => {
         let plantList = [...plantData];
         plantList.splice(i, 1);
@@ -62,20 +67,32 @@ export default function Form() {
             localStorage.setItem('city', city);
             localStorage.setItem('province', province);
             localStorage.setItem('email', email);
+
+            // plantData.forEach((plant) => {
+            //     if (!plant.name || !plant.vibe) {
+            //         setIsValid(false)
+            //     }
+            // })
+
+            // if (!city || !province) {
+            //     setIsValid(false)
+            //     return
+            // }
             
-            axios
-                .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
-                .then(() => {
-                    // navigate to thank you page 
-                    router.push('/thank-you')
+            // else {
+                axios
+                    .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
+                    .then(() => {
+                        // navigate to thank you page 
+                        router.push('/thank-you')
 
-                })
-                .catch((err) => {
-                console.log(err);
-                });
+                    })
+                    .catch((err) => {
+                    console.log(err);
+                    });
 
-                router.push('/thank-you')
-    }
+                        router.push('/thank-you')}
+    // }
 
     return (
     <div className={styles.form_main}>
@@ -115,7 +132,7 @@ export default function Form() {
                                 <label className={styles.form_label} htmlFor={`Plant #${i+1}`}>
                                     What did you grow?</label>
                                 <div className={styles.form_validation}>
-                                    <p className={`${styles.form_no_error} ${!isValid && plantData.plant === "" ? styles.form_error : ""}`}>!</p>
+                                    <p className={`${styles.form_no_error} ${!isValid && plant.name === "" ? styles.form_error : ""}`}>!</p>
                                     <input className={styles.form_plant}
                                         type="text"
                                         name="plant"
@@ -128,6 +145,7 @@ export default function Form() {
                                 </div>
                             </div>
                             <div className={styles.form_question}>
+                            <p className={`${styles.form_no_error} ${!isValid && plant.name === "" ? styles.form_error : ""}`}>!</p>
                                 <label className={styles.form_vibe_label} htmlFor={`Vibe of Plant: ${plant.plant}`}>Did you vibe?</label>
                                     <select name="vibe"
                                         id={`Vibe of Plant: ${plant.plant}`}
