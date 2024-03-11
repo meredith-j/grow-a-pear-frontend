@@ -3,7 +3,7 @@
 import styles from '../styles/your-garden.module.scss'
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { redirect, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 export default function Form() {
 

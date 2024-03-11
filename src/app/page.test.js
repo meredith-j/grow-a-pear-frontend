@@ -1,6 +1,5 @@
 import Page from "./page.js"
-import { fireEvent, render, screen } from "@testing-library/react";
-import { useRouter } from "next/router.js";
+import { render, screen } from "@testing-library/react";
 
 describe('Page', () => {
   it('renders a heading', () => {
@@ -9,7 +8,7 @@ describe('Page', () => {
 
     // act - getting the data
     const heading = screen.getByRole('heading', {
-      name: /welcome to grow a Pear/i,
+      name: /Welcome to Grow a Pear/i,
     })
 
     // assert - make it work
