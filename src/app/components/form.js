@@ -40,8 +40,10 @@ export default function Form() {
     }
 
     // NOT DONE remove form fields
-    const removePlant = () => {
-
+    const removePlant = (i) => {
+        let plantList = [...plantData];
+        plantList.splice(i, 1);
+        setPlantData(plantList)
     }
 
     // form update
@@ -164,6 +166,7 @@ export default function Form() {
                                         handleFormChange(event, i)}
                                 />
                             </div>
+                            <button type="button" className={`${styles.form_button} ${i === 0 ? styles.form_button_hide : ""}`} onClick={() => removePlant(i)}>Remove</button> 
                         </div>
                     )
                 })}

@@ -86,4 +86,11 @@
         width: 100%;
         height: 4rem;
     }
+
+    &_button {
+
+        &_hide {
+            display: none;
+        }
+    }
 }
