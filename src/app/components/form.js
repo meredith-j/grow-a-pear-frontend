@@ -2,7 +2,7 @@
 
 import styles from '../styles/your-garden.module.scss'
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { redirect, useRouter } from 'next/navigation';
 
 export default function Form() {
@@ -14,6 +14,22 @@ export default function Form() {
     const [isValid, setIsValid] = useState(true);
     const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}]);
     const router = useRouter();
+
+    // retrieve location data from local storage
+    useEffect(() => {
+          let city = localStorage.getItem('city');
+          let province = localStorage.getItem('province');
+
+          if (!city || !province) {
+            setCity("")
+            setProvince("")
+          }
+
+          else {
+          setCity(city);
+          setProvince(province)
+            }
+        }, [])
 
     // add form fields
     const addPlant = () => {
@@ -112,7 +128,9 @@ export default function Form() {
         e.preventDefault();
 
             console.log(city, province, plantData, email)
-
+            localStorage.setItem('city', city);
+            localStorage.setItem('province', province);
+            
             axios
                 .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
                 .then(() => {

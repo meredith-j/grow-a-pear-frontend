@@ -1,6 +1,5 @@
 import Page from "./page.js"
 import { fireEvent, render, screen } from "@testing-library/react";
-import '@testing-library/jest-dom'
 import { useRouter } from "next/router.js";
 
 describe('Page', () => {
