@@ -26,17 +26,25 @@ export default function Form() {
             setEmail("")
           }
 
-          else if (!city || !province) {
-            setCity("")
-            setProvince("")
-          }
-
-          else {
-            setCity(city);
-            setProvince(province)
-            setEmail(email)
+            else if (!city || !province) {
+                setCity("")
+                setProvince("")
             }
+
+            else {
+                setCity(city);
+                setProvince(province)
+                setEmail(email)
+                }
         }, [])
+
+    // form validation
+
+    // useEffect(() =>{
+    //     if (!city || !province) {
+    //         setIsValid(false)
+    //     }
+    // }), []
 
     // add form fields
     const addPlant = () => {
@@ -58,28 +66,19 @@ export default function Form() {
         let data = [...plantData];
         data[index][event.target.name] = event.target.value;
         setPlantData(data)
+        
     }
     
     // form submission (new)
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-            localStorage.setItem('city', city);
-            localStorage.setItem('province', province);
-            localStorage.setItem('email', email);
+            console.log(plantData)
 
-            // plantData.forEach((plant) => {
-            //     if (!plant.name || !plant.vibe) {
-            //         setIsValid(false)
-            //     }
-            // })
+                localStorage.setItem('city', city);
+                localStorage.setItem('province', province);
+                localStorage.setItem('email', email);
 
-            // if (!city || !province) {
-            //     setIsValid(false)
-            //     return
-            // }
-            
-            // else {
                 axios
                     .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
                     .then(() => {
@@ -91,8 +90,8 @@ export default function Form() {
                     console.log(err);
                     });
 
-                        router.push('/thank-you')}
-    // }
+                        router.push('/thank-you')
+    }
 
     return (
     <div className={styles.form_main}>
@@ -103,7 +102,7 @@ export default function Form() {
                         Where do you live?</label>
                     <div className={styles.form_validation}>
                         <p className={`${styles.form_no_error} ${!isValid && city === "" ? styles.form_error : ""}`}>!</p>
-                        <input className={styles.form_location}
+                        <input required className={styles.form_location}
                             type="text"
                             name="city"
                             id="city and province"
@@ -115,7 +114,7 @@ export default function Form() {
                     </div>
                     <div className={styles.form_validation}>
                         <p className={`${styles.form_no_error} ${!isValid && province === "" ? styles.form_error : ""}`}>!</p>
-                        <input className={styles.form_location}
+                        <input required className={styles.form_location}
                             type="text"
                             name="province"
                             placeholder="Your Province/Territory"
@@ -132,8 +131,8 @@ export default function Form() {
                                 <label className={styles.form_label} htmlFor={`Plant #${i+1}`}>
                                     What did you grow?</label>
                                 <div className={styles.form_validation}>
-                                    <p className={`${styles.form_no_error} ${!isValid && plant.name === "" ? styles.form_error : ""}`}>!</p>
-                                    <input className={styles.form_plant}
+                                    <p className={`${styles.form_no_error} ${!isValid && plant.plant === "" ? styles.form_error : ""}`}>!</p>
+                                    <input required className={styles.form_plant}
                                         type="text"
                                         name="plant"
                                         id={`Plant #${i+1}`}
@@ -145,9 +144,9 @@ export default function Form() {
                                 </div>
                             </div>
                             <div className={styles.form_question}>
-                            <p className={`${styles.form_no_error} ${!isValid && plant.name === "" ? styles.form_error : ""}`}>!</p>
+                            <p className={`${styles.form_no_error} ${!isValid && plant.vibe === "" ? styles.form_error : ""}`}>!</p>
                                 <label className={styles.form_vibe_label} htmlFor={`Vibe of Plant: ${plant.plant}`}>Did you vibe?</label>
-                                    <select name="vibe"
+                                    <select required name="vibe"
                                         id={`Vibe of Plant: ${plant.plant}`}
                                         value={plant.vibe}
                                         onChange={event =>
@@ -194,7 +193,7 @@ export default function Form() {
                     <label className={styles.form_label} htmlFor="signup">
                         Want us to let you know when Grow a Pear goes live?</label>
                     <input className={styles.form_email}
-                            type="text"
+                            type="email"
                             name="signup"
                             id="signup"
                             placeholder="Your email"
