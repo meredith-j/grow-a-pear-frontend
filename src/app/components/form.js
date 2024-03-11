@@ -4,15 +4,78 @@ import styles from '../styles/your-garden.module.scss'
 import axios from 'axios';
 import { useState } from 'react';
 import Script from 'next/script';
+import usePlacesAutocomplete from "use-places-autocomplete";
 
 export default function Form() {
 
     const [futureUser, setFutureUser] = useState("")
     const [email, setEmail] = useState("")
+    const [location, setLocation] = useState("")
     const [city, setCity] = useState("")
     const [province, setProvince] = useState("")
     const [isValid, setIsValid] = useState(true)
+    // const [value, setValue] = useState("")
     const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}])
+    let newData;
+
+    // load google autocomplete functionality
+    const {
+        ready,
+        value,
+        suggestions: { status, data },
+        setValue,
+        clearSuggestions,
+      } = usePlacesAutocomplete({
+        callbackName: "initAutocomplete",
+        requestOptions: {
+
+           
+            // 'country': ['ca'],
+            // region: "ca"
+            // 'types': ["locality"],
+            // region: "ca",
+            // bounds: { country: "us" },
+            // {type: ["locality", "sublocality", "(cities)", "(regions)"],
+            // strictbounds: {country: "ca"}}}
+        },
+        debounce: 300,
+      });
+  
+      const handleInput = (e) => {
+        // Update the keyword of the input element
+        setValue(e.target.value);
+      };
+    
+      const handleSelect =
+        ({ description }) =>
+        () => {
+          // When the user selects a place, we can replace the keyword without request data from API
+          // by setting the second parameter to "false"
+          setValue(description, false);
+          clearSuggestions();
+        };
+    
+      const renderSuggestions = () =>
+      
+        data.map((suggestion, i) => {
+          const {
+            place_id,
+            structured_formatting: { main_text, secondary_text },
+          } = suggestion;
+    
+        //   if (suggestion.types.includes('locality')) {
+        //     newData = data.push(i)
+        //   }
+
+          console.log(data)
+
+          return (
+            <li key={place_id} onClick={handleSelect(suggestion)}>
+              <strong>{main_text}</strong> <small>{secondary_text}</small>
+            </li>
+          );
+        });
+    
 
     // add form fields
     const addPlant = () => {
@@ -129,35 +192,24 @@ export default function Form() {
     return (
     <div>
         <Script async
-            src="https://maps.googleapis.com/maps/api/js?key= ${MY KEY} &loading=async&libraries=places">
+            src={process.env.GOOGLE_MAPS_SCRIPT}>
         </Script>
         <form className={styles.form}
             onSubmit={handleOnSubmit}>
                 <div className={styles.form_question}>
-                    <label className={styles.form_label} htmlFor="city and province">
+                    <label className={styles.form_label} htmlFor="location">
                         Where do you live?</label>
                     <div className={styles.form_validation}>
                         <p className={`${styles.form_no_error} ${!isValid && city === "" ? styles.form_error : ""}`}>!</p>
                         <input className={styles.form_location}
                             type="text"
-                            name="city"
-                            id="city and province"
-                            placeholder="Your City"
-                            value={city}
-                            onChange={(e) => {
-                                setCity(e.target.value)}}
+                            name="location"
+                            id="location"
+                            placeholder="Your City & Province/Territory"
+                            value={value}
+                            onChange={handleInput}
                         />
-                    </div>
-                    <div className={styles.form_validation}>
-                        <p className={`${styles.form_no_error} ${!isValid && province === "" ? styles.form_error : ""}`}>!</p>
-                        <input className={styles.form_location}
-                            type="text"
-                            name="province"
-                            placeholder="Your Province/Territory"
-                            value={province}
-                            onChange={(e) => {
-                                setProvince(e.target.value)}}
-                        />
+                        <ul>{renderSuggestions()}</ul>
                     </div>
                 </div>
                 {plantData.map((plant, index) => {
