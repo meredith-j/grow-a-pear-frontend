@@ -7,7 +7,6 @@ import { redirect, useRouter } from 'next/navigation';
 
 export default function Form() {
 
-    const [futureUser, setFutureUser] = useState("");
     const [email, setEmail] = useState("");
     const [city, setCity] = useState("");
     const [province, setProvince] = useState("");
@@ -52,16 +51,6 @@ export default function Form() {
         let data = [...plantData];
         data[index][event.target.name] = event.target.value;
         setPlantData(data)
-
-        
-        // for (let i = 0; i < data.length; i++) {
-
-        //     console.log(data[i])
-            
-        //     axios
-        //         .post(`http://localhost:8080/plant`, {email:email, city:city, province:province, sunlight:sunlight, plant:data[i].plant, vibe:data[i].vibe, review:data[i].review})
-        // }
-
     }
     
     // form submission (new)
@@ -75,9 +64,8 @@ export default function Form() {
             axios
                 .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
                 .then(() => {
-                    console.log("🤘🏻 .then is working")
-
                     // navigate to thank you page 
+                    router.push('/thank-you')
 
                 })
                 .catch((err) => {
@@ -88,7 +76,7 @@ export default function Form() {
     }
 
     return (
-    <div>
+    <div className={styles.form_main}>
         <form className={styles.form}
             onSubmit={handleOnSubmit}>
                 <div className={styles.form_question}>
@@ -122,14 +110,14 @@ export default function Form() {
                     return (
                         <div key={i} className={styles.form_border}>
                             <div className={styles.form_question}>
-                                <label className={styles.form_label} htmlFor="plant">
+                                <label className={styles.form_label} htmlFor={`Plant #${i+1}`}>
                                     What did you grow?</label>
                                 <div className={styles.form_validation}>
                                     <p className={`${styles.form_no_error} ${!isValid && plantData.plant === "" ? styles.form_error : ""}`}>!</p>
                                     <input className={styles.form_plant}
                                         type="text"
                                         name="plant"
-                                        id="plant"
+                                        id={`Plant #${i+1}`}
                                         placeholder="Your Plant"
                                         value={plant.plant}
                                         onChange={event =>
@@ -138,26 +126,26 @@ export default function Form() {
                                 </div>
                             </div>
                             <div className={styles.form_question}>
-                                <label className={styles.form_vibe_label} htmlFor="vibe">Did you vibe?</label>
+                                <label className={styles.form_vibe_label} htmlFor={`Vibe of Plant: ${plant.plant}`}>Did you vibe?</label>
                                     <select name="vibe"
-                                        id="vibe"
+                                        id={`Vibe of Plant: ${plant.plant}`}
                                         value={plant.vibe}
                                         onChange={event =>
-                                            handleFormChange(event, index)}>
+                                            handleFormChange(event, i)}>
                                         <option id="choose your vibe"
                                             name="vibe" 
                                             value="">
                                                 Select One
                                                 </option>
                                         <option
-                                            id="vibe"
+                                            id={`Vibe of Plant: ${plant.plant}`}
                                             value="true"
                                             name="vibe"
                                             >
                                                 Hell yeah, we vibed 🤘🏻
                                                 </option>
                                         <option
-                                            id="vibe"
+                                            id={`Vibe of Plant: ${plant.plant}`}
                                             value="false"
                                             name="vibe">
                                                 We did not vibe. 🥀
@@ -165,15 +153,15 @@ export default function Form() {
                                     </select>
                             </div>
                             <div className={styles.form_question}>
-                                <label className={styles.form_label} htmlFor="review">
+                                <label className={styles.form_label} htmlFor={`Review of Plant: ${plant.plant}`}>
                                     Any wisdom to pass on?</label>
                                 <textarea
                                     name="review"
-                                    id="review"
+                                    id={`Review of Plant: ${plant.plant}`}
                                     className={styles.form_comment}
                                     value={plant.review}
                                     onChange={event =>
-                                        handleFormChange(event, index)}
+                                        handleFormChange(event, i)}
                                 />
                             </div>
                         </div>
