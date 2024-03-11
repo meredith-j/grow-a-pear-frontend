@@ -1,8 +1,14 @@
-// import Image from 'next/image'
-import Link from 'next/link'
-import styles from './styles/home.module.scss'
+"use client"
+import Link from 'next/link';
+import { useEffect } from 'react';
+import styles from './styles/home.module.scss';
 
 export default function Page() {
+
+  useEffect(() => {
+    localStorage.clear();
+  }, [])
+
   return (
   <div className={styles.main}>
     <div className={styles.hero}>
