@@ -65,16 +65,15 @@ export default function Form() {
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-            console.log(plantData)
-
             localStorage.setItem('city', city);
             localStorage.setItem('province', province);
             localStorage.setItem('email', email);
 
             axios
                 .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
-                .then(() => {
+                .then((response) => {
                     // navigate to thank you page 
+                    console.log(response.status)
                     router.push('/thank-you')
                 })
                 .catch((err) => {
@@ -119,7 +118,7 @@ export default function Form() {
                         <div key={i} className={styles.form_border}>
                             <p className={styles.form_plant_heading}>{`Plant #${i+1}: ${plant.plant}`}</p>
                             <section className={styles.form_question_tablet}>
-                                <div className={styles.form_question}>
+                                <div className={`${styles.form_question} ${styles.form_question_tablet}`}>
                                     <label className={styles.form_label} htmlFor={`Plant #${i+1}`}>
                                         What did you grow?</label>
                                     <div className={styles.form_validation}>
@@ -180,7 +179,7 @@ export default function Form() {
                                         handleFormChange(event, i)}
                                 />
                             </div>
-                            <button type="button" className={`${styles.form_button} ${plantData.length === 1 ? styles.form_button_hide : ""}`} onClick={() => removePlant(i)}>Remove</button> 
+                            <button type="button" className={`${styles.form_button} ${plantData.length === 1 ? styles.form_button_hide : ""}`} onClick={() => removePlant(i)}>Remove Plant</button> 
                         </div>
                     )
                 })}
@@ -188,7 +187,7 @@ export default function Form() {
                     <button className={`${plantData.length === 5 ? styles.form_button_hide : styles.form_button}`} onClick={addPlant} type="button">Add another plant</button>
                     <p className={`${plantData.length === 5 ? styles.form_warning : styles.form_warning_hide}`}>You've reached the max amount of plants that can be submitted.</p>
                 </div>
-                <div className={styles.form_question}>
+                <div className={`${styles.form_question} ${styles.form_email_section}`}>
                     <label className={styles.form_label} htmlFor="signup">
                         Want us to let you know when Grow a Pear goes live?</label>
                     <input className={`${styles.form_email} ${styles.form_input}`}
