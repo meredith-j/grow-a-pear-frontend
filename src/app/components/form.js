@@ -38,14 +38,6 @@ export default function Form() {
                 }
         }, [])
 
-    // form validation
-
-    // useEffect(() =>{
-    //     if (!city || !province) {
-    //         setIsValid(false)
-    //     }
-    // }), []
-
     // add form fields
     const addPlant = () => {
         let newPlant = {plant:"", vibe: "", review: ""};
