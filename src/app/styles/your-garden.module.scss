@@ -5,7 +5,7 @@
 
 .header {
     padding: 1rem 0.5rem 0 0.5rem;
-    
+
     &_quiz {
         font-size: 1rem;
         text-align: center;
@@ -126,7 +126,7 @@
         min-height: 4rem;
 
         @include tablet {
-            min-width: 50rem;
+            min-width: 85%;
             min-height: 5rem;
         }
     }

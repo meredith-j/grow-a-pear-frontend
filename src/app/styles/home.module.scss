@@ -32,6 +32,7 @@
 
   &_description {
     text-align: center;
+    padding: 0 0.75rem 2rem 0.75rem;
 
     @include tablet {
       padding: 2rem 5rem;
@@ -43,7 +44,7 @@
       color: $text-alt;
       border: 0.05rem solid $text-alt;
       }
-      
+
     &_start {
       background-color: $text-alt;
       text-decoration: none;

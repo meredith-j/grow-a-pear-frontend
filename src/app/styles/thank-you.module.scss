@@ -22,10 +22,11 @@
 
     &_copy {
         line-height: 1rem;
-        padding: 0.5rem 0;
+        padding: 1rem 1.5rem;
 
         @include tablet {
             width: 75%;
+            padding: 1rem 0;
         }
     }
 }
