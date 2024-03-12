@@ -69,6 +69,8 @@ export default function Form() {
             localStorage.setItem('province', province);
             localStorage.setItem('email', email);
 
+            console.log(plantData)
+
             axios
                 .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
                 .then((response) => {
@@ -136,34 +138,23 @@ export default function Form() {
                                 </div>
                                 <div className={styles.form_question}>
                                 <p className={`${styles.form_no_error} ${!isValid && plant.vibe === "" ? styles.form_error : ""}`}>!</p>
-                                    <label className={styles.form_vibe_label} htmlFor={`Vibe of Plant: ${plant.plant}`}>Did you vibe?</label>
-                                        <select required name="vibe"
-                                        className={styles.form_vibe}
-                                            id={`Vibe of Plant: ${plant.plant}`}
-                                            value={plant.vibe}
+                                    <p className={styles.form_vibe_label} htmlFor={`Vibe of Plant: ${plant.plant}`}>Did you vibe?</p>
+                                        <input type="radio"
+                                            id={`Good Vibe for Plant ${i+1}: ${plant.plant}`}
+                                            // name={`vibe ${i+1}`}
+                                            name="vibe"
+                                            value={true}
                                             onChange={event =>
-                                                handleFormChange(event, i)}>
-                                            <option id="choose your vibe"
-                                                name="vibe"
-                                                className={styles.form_vibe_option} 
-                                                value="">
-                                                    Select One
-                                                    </option>
-                                            <option
-                                                id={`Vibe of Plant: ${plant.plant}`}
-                                                value="true"
-                                                className={styles.form_vibe_option} 
-                                                name="vibe"
-                                                >
-                                                    Hell yeah 🤘🏻
-                                                    </option>
-                                            <option
-                                                id={`Vibe of Plant: ${plant.plant}`}
-                                                value="false"
-                                                name="vibe">
-                                                    Not my vibe 🥀
-                                                    </option>
-                                        </select>
+                                                handleFormChange(event, i)}/>
+                                            <label htmlFor={`Good Vibe for Plant ${i+1}: ${plant.plant}`}>good vibes 🤟🏻</label>
+                                        <input type="radio"
+                                            id={`Bad Vibe for Plant ${i+1}: ${plant.plant}`}
+                                            // name={`vibe ${i+1}`}
+                                            name="vibe"
+                                            value={false}
+                                            onChange={event =>
+                                                handleFormChange(event, i)}/>
+                                            <label htmlFor={`Bad Vibe for Plant ${i+1}: ${plant.plant}`}>bad vibes 🥀</label>
                                 </div>
                             </section>
                             <div className={styles.form_question}>
