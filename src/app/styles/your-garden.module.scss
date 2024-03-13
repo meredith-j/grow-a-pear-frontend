@@ -78,21 +78,28 @@
             padding: 0 0 0 0.5rem;
             margin: 0 0 0 0.5rem;
         }
+
+        &_error {
+            border: 0.075rem solid $error;
+        }
+
+        &_vibe {
+            height: 2rem;
+        }
     }
 
     &_input:focus {
         outline: none;
-        border: 0.05rem solid $background-alt;
+        border: 0.075rem solid $background-alt;
+    }
+
+    &_input::placeholder {
+        color: $text-alt;
+        opacity: 70%;
     }
 
     &_no_error {
         display: none;
-    }
-    
-    &_error {
-        display: flex;
-        color: $error;
-        padding: 0.5rem 0 0 0;
     }
 
     &_plant {
