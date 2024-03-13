@@ -58,28 +58,66 @@ export default function Form() {
         let data = [...plantData];
         data[index][event.target.name] = event.target.value;
         setPlantData(data)
+
+        if (city !== "" && province !== "" && plantData[index].vibe !== "" && plantData[index].plant !== "") {
+            setIsValid(true)
+        }
         
     }
+
+    // send request to axios
+    const sendRequest = async () => {
+        const response =  await axios
+
+        .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
+        
+        return response
+    }
+    
     
     // form submission (new)
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-            localStorage.setItem('city', city);
-            localStorage.setItem('province', province);
-            localStorage.setItem('email', email);
+        console.log(plantData)
 
-            axios
-                .post(`http://localhost:8080/plant`, {city:city, province:province, plants:plantData, email:email})
-                .then((response) => {
-                    // navigate to thank you page 
-                    console.log(response.status)
-                    router.push('/thank-you')
-                })
-                .catch((err) => {
-                console.log(err);
-                });
-                    router.push('/thank-you')
+        if (!city || !province) {
+            setIsValid(false)
+            return
+        }
+
+        else {
+            console.log("location true")
+        }
+
+        for (let i = 0; i < plantData.length; i++) {
+            if (plantData[i].plant === "" || plantData[i].vibe === "") {
+                console.log(`Plant: ${plantData[i].plant}, Vibe: ${plantData[i].vibe}`)
+                setIsValid(false)
+                return
+            }
+
+            setIsValid(true)
+        }
+
+        console.log(`final valid: ${isValid}`)
+
+        if (!isValid) {
+            return
+        }
+
+            else if (isValid) {
+                localStorage.setItem('city', city);
+                localStorage.setItem('province', province);
+                localStorage.setItem('email', email);
+
+                try {sendRequest()}
+                    catch (error) {
+                        console.log(error)
+                    }
+                
+                router.push('/thank-you')
+            }
     }
 
     return (
@@ -91,7 +129,7 @@ export default function Form() {
                         Where do you live?</label>
                     <div className={styles.form_validation}>
                         <p className={`${styles.form_no_error} ${!isValid && city === "" ? styles.form_error : ""}`}>!</p>
-                        <input required className={`${styles.form_location} ${styles.form_input}`}
+                        <input className={`${styles.form_location} ${styles.form_input}`}
                             type="text"
                             name="city"
                             id="city and province"
@@ -103,7 +141,7 @@ export default function Form() {
                     </div>
                     <div className={styles.form_validation}>
                         <p className={`${styles.form_no_error} ${!isValid && province === "" ? styles.form_error : ""}`}>!</p>
-                        <input required className={`${styles.form_location} ${styles.form_input}`}
+                        <input className={`${styles.form_location} ${styles.form_input}`}
                             type="text"
                             name="province"
                             placeholder="Your Province/Territory"
@@ -123,7 +161,7 @@ export default function Form() {
                                         What did you grow?</label>
                                     <div className={styles.form_validation}>
                                         <p className={`${styles.form_no_error} ${!isValid && plant.plant === "" ? styles.form_error : ""}`}>!</p>
-                                        <input required className={`${styles.form_plant} ${styles.form_input}`}
+                                        <input className={`${styles.form_plant} ${styles.form_input}`}
                                             type="text"
                                             name="plant"
                                             id={`Plant #${i+1}`}
@@ -136,34 +174,31 @@ export default function Form() {
                                 </div>
                                 <div className={styles.form_question}>
                                 <p className={`${styles.form_no_error} ${!isValid && plant.vibe === "" ? styles.form_error : ""}`}>!</p>
-                                    <label className={styles.form_vibe_label} htmlFor={`Vibe of Plant: ${plant.plant}`}>Did you vibe?</label>
-                                        <select required name="vibe"
-                                        className={styles.form_vibe}
-                                            id={`Vibe of Plant: ${plant.plant}`}
-                                            value={plant.vibe}
-                                            onChange={event =>
-                                                handleFormChange(event, i)}>
-                                            <option id="choose your vibe"
-                                                name="vibe"
-                                                className={styles.form_vibe_option} 
-                                                value="">
-                                                    Select One
-                                                    </option>
-                                            <option
-                                                id={`Vibe of Plant: ${plant.plant}`}
-                                                value="true"
-                                                className={styles.form_vibe_option} 
-                                                name="vibe"
-                                                >
-                                                    Hell yeah 🤘🏻
-                                                    </option>
-                                            <option
-                                                id={`Vibe of Plant: ${plant.plant}`}
-                                                value="false"
-                                                name="vibe">
-                                                    Not my vibe 🥀
-                                                    </option>
-                                        </select>
+                                <label className={styles.form_vibe_label} htmlFor="vibe">Did you vibe?</label>
+                                    <select name="vibe"
+                                        id="vibe"
+                                        value={plant.vibe}
+                                        onChange={event =>
+                                            handleFormChange(event, i)}>
+                                        <option id="choose your vibe"
+                                            name="vibe" 
+                                            value="">
+                                                Select One
+                                                </option>
+                                        <option
+                                            id="vibe"
+                                            value="true"
+                                            name="vibe"
+                                            >
+                                                Hell yeah, we vibed 🤘🏻
+                                                </option>
+                                        <option
+                                            id="vibe"
+                                            value="false"
+                                            name="vibe">
+                                                We did not vibe. 🥀
+                                                </option>
+                                    </select>
                                 </div>
                             </section>
                             <div className={styles.form_question}>

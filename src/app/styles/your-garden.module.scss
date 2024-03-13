@@ -90,7 +90,7 @@
     }
     
     &_error {
-        visibility: visible;
+        display: flex;
         color: $error;
         padding: 0.5rem 0 0 0;
     }
