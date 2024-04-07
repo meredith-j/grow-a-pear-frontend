@@ -37,4 +37,5 @@ next-env.d.ts
 
 # draft files
 PlacesAutocomplete.js
+PlacesAutocompleteGoogle.js
 src/app/autocomplete
