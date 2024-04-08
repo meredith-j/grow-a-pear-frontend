@@ -1,8 +1,11 @@
-import Page from "./page.js"
-import { render, screen } from "@testing-library/react";
+import Page from "../src/app/page";
+import '@testing-library/jest-dom';
+import { render, screen, fireEvent } from "@testing-library/react";
 
-describe('Page', () => {
-  it('renders a heading', () => {
+describe('home page', () => {
+
+  // this test should always pass: if it fails, something is wrong.
+  test('renders a heading', () => {
     // arrange - what you want to test
     render(<Page />)
 
@@ -14,7 +17,18 @@ describe('Page', () => {
     // assert - make it work
     expect(heading).toBeInTheDocument();
     expect(heading).toHaveTextContent('Welcome to Grow A Pear');
-  })
+  });
+
+  // tests the link to garden quiz
+  test('link navigates to /your-garden',() => {
+    render(<Page />);
+
+    const link = screen.getByRole("link");
+
+    expect(link.getAttribute("href")).toBe("/your-garden");
+
+  });
+
 })
 
 // jest.mock("next/link", () => {
