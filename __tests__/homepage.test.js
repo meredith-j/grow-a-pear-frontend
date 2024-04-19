@@ -4,30 +4,38 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 describe('home page', () => {
 
-  // this test should always pass: if it fails, something is wrong.
-  test('renders a heading', () => {
-    // arrange - what you want to test
-    render(<Page />)
+  // check that page renders?
 
-    // act - getting the data
-    const heading = screen.getByRole('heading', {
-      name: /Welcome to Grow a Pear/i,
-    })
+  describe('ensures test is running properly', () => {
 
-    // assert - make it work
-    expect(heading).toBeInTheDocument();
-    expect(heading).toHaveTextContent('Welcome to Grow A Pear');
-  });
+    // this test should always pass: if it fails, something is wrong.
+    test('should render a heading welcoming the user', () => {
+      // arrange - what you want to test
+      render(<Page />)
 
-  // tests the link to garden quiz
-  test('link navigates to /your-garden',() => {
-    render(<Page />);
+      // act - getting the data
+      const heading = screen.getByRole('heading', {
+        name: /Welcome to Grow a Pear/i,
+      })
 
-    const link = screen.getByRole("link");
+      // assert - make it work
+      expect(heading).toBeInTheDocument();
+      expect(heading).toHaveTextContent('Welcome to Grow A Pear');
+    });
+  })
 
-    expect(link.getAttribute("href")).toBe("/your-garden");
+  describe('test links on page', () => {
+  
+    // tests the link to garden quiz
+    test('link navigates to /your-garden',() => {
+      render(<Page />);
 
-  });
+      const link = screen.getByRole("link");
+
+      expect(link.getAttribute("href")).toBe("/your-garden");
+
+    });
+  })
 
 })
 
