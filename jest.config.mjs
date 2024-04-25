@@ -17,9 +17,9 @@ const createJestConfig = nextJest({
 // config file copied from nextjs documentation
 const config = {
   coverageProvider: 'v8',
-  testEnvironment: 'jsdom',
+  testEnvironment: 'jest-environment-jsdom',
   // Add more setup options before each test is run
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js']
 }
 
 

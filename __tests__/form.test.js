@@ -1,21 +1,26 @@
-import Page from "../src/app/your-garden/page";
-import '@testing-library/jest-dom';
-import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
-// import {jest} from '@jest/globals';
+import '@testing-library/jest-dom';
+import { render, screen, fireEvent} from "@testing-library/react";
+import userEvent from '@testing-library/user-event';
+
+import Page from "../src/app/your-garden/page";
 
 // created mock for useRouter in order to write unit tests for this page
+// jest.mock('next/navigation', () => ({
+//     useRouter: () => ({
+//       push: jest.fn(),
+//       events: {
+//         on: jest.fn(),
+//         off: jest.fn(),
+//         emit: jest.fn(),
+//       },
+//       isFallback: false,
+//     }),
+//   }));
+
 jest.mock('next/navigation', () => ({
-    useRouter: () => ({
-      push: jest.fn(),
-      events: {
-        on: jest.fn(),
-        off: jest.fn(),
-        emit: jest.fn(),
-      },
-      isFallback: false,
-    }),
-  }));
+  useRouter: jest.fn()
+}))
   
 describe('plant quiz/form', () => {
 
@@ -62,26 +67,44 @@ describe('plant quiz/form', () => {
             expect(element).toBeInTheDocument();
         });
 
-        //test submit button
-        test("plants are submitted when submit button is clicked", () => {
-            const mockHandleSubmit = jest.fn();
-    
+        // alt test submit button
+        // test("NEW plants are submitted when submit button is clicked", () => {
+        //     const {getByTestId} = render(<Page 
+        //         handleSubmit={submit}/>);
+
+        //     const submit = getByTestId('submit-test');
+        //     fireEvent.click(submit);
+        //     expect(submit).toHaveBeenCalled()
+        // })
+
+        // OLD test submit button
+        
+        test("plants with correct information are submitted and sent to database", () => {
+            const mockHandleSubmit = jest.fn(console.log('hello'));
+            const mockHandleSubmit1 = jest.fn(console.log('hello 2'));
+            
+            // const myMockFn = jest.fn(cb => cb(null, true));
+            // myMockFn((err, val) => console.log(val));
+
             const {getByText} = render(<Page
                 email={""}
-                city={""}
-                province={''}
+                city={"toronto"}
+                province={'ontario'}
                 isValid={true}
-                plantData={[{plant:"", vibe: "", review: ""}]}
+                plantData={[{plant:"tomato", vibe: false, review: ""}]}
                 handleAddPlant={Function}
                 handleRemovePlant={Function}
-                handleSubmit={mockHandleSubmit} 
+                handleOnSubmit={mockHandleSubmit} 
                 />);
-              
+            
             const button = getByText("Save my plants");
     
-            fireEvent.click(button);
+            userEvent.click(button);
             
+            expect(button).toBeInTheDocument()
             expect(mockHandleSubmit).toHaveBeenCalled();
+            expect(mockHandleSubmit1).toHaveBeenCalled();
+
         })
 
         // "add plant" button adds a plant
