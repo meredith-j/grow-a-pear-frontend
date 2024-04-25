@@ -5,19 +5,6 @@ import userEvent from '@testing-library/user-event';
 
 import Page from "../src/app/your-garden/page";
 
-// created mock for useRouter in order to write unit tests for this page
-// jest.mock('next/navigation', () => ({
-//     useRouter: () => ({
-//       push: jest.fn(),
-//       events: {
-//         on: jest.fn(),
-//         off: jest.fn(),
-//         emit: jest.fn(),
-//       },
-//       isFallback: false,
-//     }),
-//   }));
-
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn()
 }))
