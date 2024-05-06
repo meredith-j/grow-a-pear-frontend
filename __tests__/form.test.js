@@ -1,6 +1,6 @@
 import React from "react";
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 
 import Form from "../src/app/components/Form"
 
@@ -34,28 +34,41 @@ describe('plant quiz/form', () => {
     describe('adding and removing plants', () => {
         
         // expect addPlant to be called onClick
-        test('addPlant function is called when add plant button is clicked', () => {
+        test('addPlant function is called when add plant button is clicked', async () => {
             const addPlant=jest.fn();
-            render(<Form />);
             const button = screen.getByTestId('add-plant');
-            fireEvent.click(button)
-            expect(addPlant).toHaveBeenCalledTimes(1)
-            // expect(plantData).toHaveLength(2)
+
+            expect(button).toBeInTheDocument();
+
+            const buttonClick = await fireEvent.click(button);
+            
+            expect(addPlant).toHaveBeenCalled()
         })
         
-        // expect length is +1 when "adding plant"
-        // test('length of plantData array increases by 1 when clicking add plant', () => {
-        //     const plantData = [{plant:"tomato", review: "", vibe: true}];
-        //     const button = screen.getByRole('button', {name: 'Add another plant'});
+        // expect plant #2 inputs to appear when clicking add plant
+        test('when clicking add plant, form will render additional input for second plant', async () => {
+            const plantOne = screen.getByText('Plant #1:')
+            const button = screen.getByTestId('add-plant');
 
-        //     console.log(button)
-        //     fireEvent.click(button)
-        //     // console.log(plantData)
+            expect(button).toBeInTheDocument();
+            expect(plantOne).toBeInTheDocument();
 
-        //     // expect(onClick).toHaveBeenCalledTimes(1);
-        //     expect(plantData).toHaveLength(2)
+            fireEvent.click(button)
+            // let buttonClick = await fireEvent.click(button);
 
-        // })
+            // const plantTwo = screen.getByText('Plant #2:');
+
+            // // expect(buttonClick.resolve(plantTwo)).resolves.toBeInTheDocument();
+            // expect(buttonClick).toBeTruthy();
+            // expect(plantTwo).toBeInTheDocument();
+
+            // await waitFor(() => {
+            //     expect(findByText('Plant #2:')).toBeInTheDocument();
+            // })
+
+            expect(await screen.queryByText('Plant #2:')).toBeInTheDocument();
+            expect(await screen.queryByText('this does not exist in the document')).not.toBeInTheDocument();
+        })
 
         // expect length is -1 when removing plant
     })

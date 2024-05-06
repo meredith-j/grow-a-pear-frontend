@@ -203,7 +203,7 @@ export default function Form() {
                     )
                 })}
                 <div className={styles.form_border}>
-                    <button className={`${plantData.length === 5 ? styles.form_button_hide : styles.form_button}`} onClick={addPlant} type="button" data-testid="add-plant">Add another plant</button>
+                    <button className={`${plantData.length === 5 ? styles.form_button_hide : styles.form_button}`} onClick={addPlant} type="button" data-testid="add-plant" id="add-plant">Add another plant</button>
                     <p className={`${plantData.length === 5 ? styles.form_warning : styles.form_warning_hide}`}>You've reached the max amount of plants that can be submitted.</p>
                 </div>
                 <div className={`${styles.form_question} ${styles.form_email_section}`}>
