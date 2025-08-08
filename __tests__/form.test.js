@@ -15,8 +15,9 @@ describe('plant quiz/form', () => {
     })
 
     describe('tests that everything on page is working', () => {
-        test('renders a label', () => {
 
+        test('renders a label', () => {
+            
             const label = screen.getByText('Where do you live?')
 
             expect(label).toBeInTheDocument();
@@ -34,19 +35,25 @@ describe('plant quiz/form', () => {
     describe('adding and removing plants', () => {
         
         // expect addPlant to be called onClick
-        test('addPlant function is called when add plant button is clicked', async () => {
-            const addPlant=jest.fn();
-            const button = screen.getByTestId('add-plant');
+        // test('addPlant function is called when add plant button is clicked', () => {
+        //     // read into jest spyOn and spying on mock functions
+        //     // if no need to spy, do i need to bind the mock function to the onClick function?
+        //     // voice over for mac?
 
-            expect(button).toBeInTheDocument();
+        //     const mockAddPlant=jest.fn();
 
-            const buttonClick = await fireEvent.click(button);
+        //     const button = screen.getByTestId('add-plant');
+
+        //     expect(button).toBeInTheDocument();
+
+        //     const buttonClick = fireEvent.click(button);
             
-            expect(addPlant).toHaveBeenCalled()
-        })
+        //     expect(mockAddPlant).toBeCalled();
+        // })
         
         // expect plant #2 inputs to appear when clicking add plant
         test('when clicking add plant, form will render additional input for second plant', async () => {
+            
             const plantOne = screen.getByText('Plant #1:')
             const button = screen.getByTestId('add-plant');
 
