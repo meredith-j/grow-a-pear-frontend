@@ -1,4 +1,4 @@
-import Form from '../components/form'
+import Form from '../components/Form'
 import styles from '../styles/your-garden.module.scss'
 
 export default function Page() {

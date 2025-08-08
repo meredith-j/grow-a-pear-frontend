@@ -5,13 +5,15 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
+import { formValidation } from '../functions/formValidation';
+
 export default function Form() {
 
     const [email, setEmail] = useState("");
     const [city, setCity] = useState("");
     const [province, setProvince] = useState("");
     const [isValid, setIsValid] = useState(true);
-    const [plantData, setPlantData] = useState([{plant:"", vibe: "", review: ""}]);
+    const [plantData, setPlantData] = useState([{plant:"", vibe: undefined, review: ""}]);
     const router = useRouter();
 
     // retrieve location data from local storage
@@ -40,7 +42,7 @@ export default function Form() {
 
     // add form fields
     const addPlant = () => {
-        let newPlant = {plant:"", vibe: "", review: ""};
+        let newPlant = {plant:"", vibe: undefined, review: ""};
         setPlantData([...plantData, newPlant])
     }
 
@@ -59,7 +61,7 @@ export default function Form() {
         data[index][event.target.name] = event.target.value;
         setPlantData(data)
 
-        if (city !== "" && province !== "" && plantData[index].vibe !== "" && plantData[index].plant !== "") {
+        if (city !== "" && province !== "" && plantData[index].vibe !== undefined && plantData[index].plant !== "") {
             setIsValid(true)
         }
         
@@ -74,23 +76,18 @@ export default function Form() {
         return response
     }
     
-    
     // form submission (new)
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault();
 
-        if (!city || !province) {
+        let validation = await formValidation(city, province, plantData);
+  
+        if (validation === false) {
             setIsValid(false)
             return
         }
 
-        for (let i = 0; i < plantData.length; i++) {
-            if (plantData[i].plant === "" || plantData[i].vibe === "") {
-                setIsValid(false)
-                return
-            }
-
-        }
+        // setIsValid(await formValidation(city, province, plantData))
 
         if (!isValid) {
             return
@@ -161,7 +158,7 @@ export default function Form() {
                                 </div>
                                 <div className={styles.form_question}>
                                 <label className={styles.form_vibe_label} htmlFor={`Vibe of Plant: ${plant.plant}`}>Did you vibe?</label>
-                                    <select className={`${styles.form_input} ${styles.form_input_vibe} ${!isValid && plant.vibe === "" ? styles.form_input_error : ""}`}
+                                    <select className={`${styles.form_input} ${styles.form_input_vibe} ${!isValid && plant.vibe === undefined ? styles.form_input_error : ""}`}
                                         name="vibe"
                                         id={`Vibe of Plant: ${plant.plant}`}
                                         value={plant.vibe}
@@ -174,14 +171,14 @@ export default function Form() {
                                                 </option>
                                         <option
                                             id="vibe"
-                                            value="true"
+                                            value={true}
                                             name="vibe"
                                             >
                                                 Hell yeah, we vibed 🤘🏻
                                                 </option>
                                         <option
                                             id="vibe"
-                                            value="false"
+                                            value={false}
                                             name="vibe">
                                                 We did not vibe. 🥀
                                                 </option>
@@ -206,7 +203,7 @@ export default function Form() {
                     )
                 })}
                 <div className={styles.form_border}>
-                    <button className={`${plantData.length === 5 ? styles.form_button_hide : styles.form_button}`} onClick={addPlant} type="button">Add another plant</button>
+                    <button className={`${plantData.length === 5 ? styles.form_button_hide : styles.form_button}`} onClick={addPlant} type="button" data-testid="add-plant" id="add-plant">Add another plant</button>
                     <p className={`${plantData.length === 5 ? styles.form_warning : styles.form_warning_hide}`}>You've reached the max amount of plants that can be submitted.</p>
                 </div>
                 <div className={`${styles.form_question} ${styles.form_email_section}`}>
@@ -222,7 +219,7 @@ export default function Form() {
                                 setEmail(e.target.value)}}
                     />
                 </div>
-                <button className={styles.form_button} value="submit" type="submit">Save my plants</button>
+                <button className={styles.form_button} value="submit" type="submit" data-testid="submit-test">Save my plants</button>
         </form>
     </div>
     )

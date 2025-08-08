@@ -4,35 +4,39 @@ import { render, screen, fireEvent } from "@testing-library/react";
 
 describe('thank you page', () => {
 
-  // this test should always pass: if it fails, something is wrong.
-  test('renders a heading', () => {
+    describe('make sure tests are all working', () => {
+        // this test should always pass: if it fails, something is wrong.
+        test('renders a heading', () => {
 
-    render(<Page />);
+            render(<Page />);
 
-    const heading = screen.getByRole('heading', {
-        name: /Thanks for submitting 💖/i,
+            const heading = screen.getByRole('heading', {
+                name: /Thanks for submitting 💖/i,
+            })
+
+                expect(heading).toBeInTheDocument();
+                expect(heading).toHaveTextContent('Thanks for submitting 💖');
+
+        })
     })
 
-        expect(heading).toBeInTheDocument();
-        expect(heading).toHaveTextContent('Thanks for submitting 💖');
+    describe('test links on page', () => {
+        // link that goes back to garden quiz works
+        test('link to quiz working', () => {
+            render(<Page />);
 
-  })
+            const link = screen.getByText("Submit more plants");
 
-  // link that goes back to garden quiz works
-  test('link to quiz working', () => {
-    render(<Page />);
+            expect(link.getAttribute("href")).toBe("/your-garden");
+        })
 
-    const link = screen.getByText("Submit more plants");
+        // link that goes back to home works
+        test('link to home page working', () => {
+            render(<Page />);
 
-    expect(link.getAttribute("href")).toBe("/your-garden");
-  })
+            const link = screen.getByText("Home");
 
-  // link that goes back to home works
-  test('link to home page working', () => {
-    render(<Page />);
-
-    const link = screen.getByText("Home");
-
-    expect(link.getAttribute("href")).toBe("/");
-  })
+            expect(link.getAttribute("href")).toBe("/");
+        })
+    })
 })

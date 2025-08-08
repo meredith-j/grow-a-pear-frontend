@@ -1,7 +1,7 @@
 import styles from '../styles/thank-you.module.scss'
 import Link from 'next/link'
 
-export default function thankYouButtons() {
+export default function ThankYouButtons() {
 
     return(
         <div className={styles.buttons}>
