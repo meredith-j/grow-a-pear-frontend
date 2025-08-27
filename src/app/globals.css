@@ -1,4 +1,32 @@
-@import "./partials/mixins";
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+  root: ":root";
+  include: ;
+  exclude: ;
+  prefix: ;
+  logs: true;
+}
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: red;
+  --color-secondary: teal;
+}
+
+/* below is an example of custom components */
+/* [data-theme="light"] {
+  .my-btn {
+    background-color: #f5f5f5;
+    border-color: #1EA1F1;
+  }
+  .my-btn:hover {
+    background-color: #1C96E1;
+    border-color: #1C96E1;
+  }
+} */
+
+/* @import "./partials/mixins";
 @import "./partials/breakpoints";
 @import "./partials/colours";
 @import "./partials/fonts";
@@ -79,4 +107,4 @@
     background-color: $text-alt;
     padding: 0rem 0.1rem;
   }
-}
+} */

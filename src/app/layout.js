@@ -1,6 +1,8 @@
-import './styles/globals.scss';
+// import './styles/globals.scss';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import './globals.css';
+
 
 
 export const metadata = {

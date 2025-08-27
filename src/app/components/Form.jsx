@@ -1,6 +1,6 @@
 "use client"
 
-import styles from '../styles/your-garden.module.scss';
+// import styles from '../styles/your-garden.module.scss';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
