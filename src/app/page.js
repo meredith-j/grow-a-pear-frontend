@@ -10,8 +10,8 @@ export default function Page() {
 
   return (
     <div>
-      <p class="btn btn-primary">test</p>
-    <div class="mockup-code w-1/2 mx-auto">
+      <p className="btn font-display btn-primary sm:btn-secondary md:btn-ghost">test</p>
+    <div className="mockup-code w-1/2 mx-auto">
   <pre data-prefix="$"><code>we did it fam</code></pre>
 </div>
       </div>
